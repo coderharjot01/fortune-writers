@@ -36,13 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Header scroll background effect
     const header = document.querySelector('.header');
+
+    // We remove the JS background manipulation because we handle it in CSS now with variable
+    // or we just toggle a class 'scrolled'
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
-            header.style.background = 'rgba(11, 12, 16, 0.95)';
-            header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            header.classList.add('scrolled');
         } else {
-            header.style.background = 'rgba(11, 12, 16, 0.8)';
-            header.style.boxShadow = 'none';
+            header.classList.remove('scrolled');
         }
     });
 
