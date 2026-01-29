@@ -611,3 +611,23 @@ ul {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4);
 }
+
+/* Hero WhatsApp Button */
+.btn-whatsapp-hero {
+    background: #25d366;
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+.btn-whatsapp-hero:hover {
+    background: #1ebc57;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    color: #fff;
+}
