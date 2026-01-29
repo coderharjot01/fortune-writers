@@ -42,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.style.opacity = '0.7';
 
             try {
-                // Send to backend (assume running on port 3000)
-                const response = await fetch('http://localhost:3000/send-email', {
+                // Send to backend (relative path works for both localhost and production)
+                const response = await fetch('/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
