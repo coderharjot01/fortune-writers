@@ -41,9 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<div class="spinner"></div> Sending...';
             submitBtn.style.opacity = '0.7';
 
+            // Determine API URL
+            // If running on localhost/127.0.0.1 but NOT on port 3000 (e.g. Live Server on 5500), point to localhost:3000
+            // Otherwise (production or running via node server), use relative path
+            const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const isBackendPort = window.location.port === '3000';
+
+            const apiUrl = (isLocalDev && !isBackendPort)
+                ? 'http://localhost:3000/send-email'
+                : '/send-email';
+
             try {
-                // Send to backend (relative path works for both localhost and production)
-                const response = await fetch('/send-email', {
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
