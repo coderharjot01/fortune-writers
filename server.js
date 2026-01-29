@@ -3,6 +3,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
 
 const app = express();
 const PORT = 3000;
@@ -94,6 +95,12 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+// Export for Netlify
+module.exports.handler = serverless(app);
+
+// Local Development
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}
