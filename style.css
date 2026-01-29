@@ -133,6 +133,7 @@ ul {
 }
 
 /* Header */
+/* Header */
 .header {
     position: fixed;
     top: 0;
@@ -141,18 +142,17 @@ ul {
     padding: 1.5rem 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    background: transparent;
-    /* Start transparent */
+    background: var(--header-bg);
+    /* Always use theme background */
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
 }
 
 .header.scrolled {
-    background: var(--header-bg);
+    /* Background handled by base class */
     border-bottom: 1px solid var(--card-border);
     box-shadow: var(--shadow);
     padding: 1rem 0;
-    /* Shrink slightly on scroll */
 }
 
 
