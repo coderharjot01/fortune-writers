@@ -1,5 +1,27 @@
 /* Base Variables & Reset */
 :root {
+    /* Default: Light Mode */
+    --bg-color: #f9fafb;
+    --card-bg: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --accent: #0d9488;
+    /* Teal-600 */
+    --accent-dark: #0f766e;
+    /* Teal-700 */
+    --gradient-1: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+    --gradient-bg: radial-gradient(circle at 15% 50%, rgba(13, 148, 136, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(15, 118, 110, 0.05), transparent 25%);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --header-bg: rgba(255, 255, 255, 0.9);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-border: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    /* Dark Mode (Original) */
     --bg-color: #0b0c10;
     --card-bg: #1f2833;
     --text-primary: #ffffff;
@@ -9,10 +31,9 @@
     --gradient-1: linear-gradient(135deg, #66fcf1 0%, #45a29e 100%);
     --gradient-bg: radial-gradient(circle at 15% 50%, rgba(69, 162, 158, 0.1), transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.05), transparent 25%);
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Outfit', sans-serif;
-    /* Using Outfit for both for a modern tech feel */
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --header-bg: rgba(11, 12, 16, 0.8);
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --card-border: rgba(255, 255, 255, 0.05);
 }
 
 * {
@@ -36,7 +57,42 @@ body {
     background-attachment: fixed;
 }
 
-/* Utilities */
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    color: var(--accent);
+    background: rgba(102, 252, 241, 0.1);
+}
+
+body.dark-mode .theme-toggle .sun-icon {
+    display: block;
+}
+
+body.dark-mode .theme-toggle .moon-icon {
+    display: none;
+}
+
+.theme-toggle .sun-icon {
+    display: none;
+}
+
+.theme-toggle .moon-icon {
+    display: block;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -85,9 +141,12 @@ ul {
     padding: 1.5rem 0;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    background: rgba(11, 12, 16, 0.8);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--card-border);
+    transition: background 0.3s ease;
 }
+
+
 
 .header-container {
     display: flex;
@@ -249,14 +308,15 @@ ul {
 }
 
 .service-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     padding: 3rem 2rem;
     border-radius: 16px;
     transition: var(--transition);
     position: relative;
     overflow: hidden;
     cursor: default;
+    box-shadow: var(--shadow);
 }
 
 .service-card:hover {
@@ -289,10 +349,10 @@ ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(180deg, var(--card-bg) 0%, rgba(255, 255, 255, 0) 100%);
     padding: 4rem;
     border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
 }
 
 .contact-title {
@@ -344,14 +404,18 @@ ul {
 }
 
 .form-group input {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--card-border);
     padding: 1rem 1.2rem;
     border-radius: 12px;
     color: var(--text-primary);
     font-family: inherit;
     font-size: 1rem;
     transition: var(--transition);
+}
+
+body.dark-mode .form-group input {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .form-group input:focus {
@@ -385,7 +449,7 @@ ul {
 /* Footer */
 .footer {
     padding: 2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--card-border);
     margin-top: 4rem;
 }
 
@@ -470,18 +534,18 @@ ul {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 2rem;
-    background: rgba(31, 40, 51, 0.6);
+    background: var(--card-bg);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
     padding: 3rem;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
 }
 
 .stat-item {
     text-align: center;
     padding: 1rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid var(--card-border);
 }
 
 .stat-item:last-child {
