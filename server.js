@@ -7,6 +7,27 @@ const serverless = require('serverless-http');
 
 const app = express();
 const PORT = 3000;
+const mongoose = require('mongoose');
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/fortune-writers', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log('MongoDB Connected'))
+    .catch(err => console.log(err));
+
+// User Schema
+const UserSchema = new mongoose.Schema({
+    name: String,
+    university: String,
+    year: String,
+    semester: String,
+    phone: String,
+    email: String,
+    date: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('User', UserSchema);
 
 // Middleware
 app.use(cors());
@@ -93,6 +114,28 @@ app.post('/send-email', (req, res) => {
             return res.status(200).json({ success: true, message: 'Emails sent successfully' });
         }
     });
+});
+
+
+app.post('/submit-details', async (req, res) => {
+    try {
+        const { name, university, year, semester, phone, email } = req.body;
+
+        const newUser = new User({
+            name,
+            university,
+            year,
+            semester,
+            phone,
+            email
+        });
+
+        await newUser.save();
+        res.status(200).json({ success: true, message: 'Details saved successfully' });
+    } catch (error) {
+        console.error('Error saving user:', error);
+        res.status(500).json({ success: false, message: 'Failed to save details' });
+    }
 });
 
 // Export for Netlify
